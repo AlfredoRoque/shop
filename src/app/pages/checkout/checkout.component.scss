@@ -1,0 +1,29 @@
+.container{
+    display: flex!important;
+    align-items: center!important;
+    padding: 1rem 5rem!important;
+
+    .item{
+        flex: 1 1 auto!important;
+    }
+
+    .form{
+        width: 100%!important;
+    }
+    .form_element{
+        padding: 5px 0px 25px 2px;
+        width: 100%;
+        margin-bottom: .5rem;
+    }
+    .check{
+        padding: 0 1rem;
+    }
+}
+
+button{
+    width: 20%!important;
+}
+.container-button{
+    width: 100%;
+    text-align: center;
+}

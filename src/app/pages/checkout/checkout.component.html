@@ -1,0 +1,47 @@
+<div class="container">
+    <form class="form item" #checkoutForm="ngForm">
+        <mat-form-field class="form_element">
+            <input matInput placeholder="Nombre" required [(ngModel)]="model.name" name="name" #name="ngModel">
+            <mat-error *ngIf="!name.valid || name.pristine">
+                Nombre Requerido
+            </mat-error>
+        </mat-form-field>
+        <mat-radio-group class="form_element">
+            <p>Selecciona</p>
+            <mat-radio-button value="pickup" (change)="OnPickUpOnDelivery(true)" class="check" checked>
+                Recoger
+            </mat-radio-button>
+            <mat-radio-button value="delivery" (change)="OnPickUpOnDelivery(false)" class="check">
+                Enviar
+            </mat-radio-button>
+        </mat-radio-group>
+        <ng-container *ngIf="!isDelivery; else showStores">
+            <mat-form-field class="form_element">
+                <input matInput placeholder="Direccion de Envio" required [(ngModel)]="model.shippingAddress" name="shippingAddress" #shippingAddress="ngModel">
+                <mat-error *ngIf="!shippingAddress.valid || shippingAddress.pristine">
+                    Direccion Requerida
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="form_element">
+                <input matInput placeholder="Ciudad" required [(ngModel)]="model.city" name="city" #city="ngModel">
+                <mat-error *ngIf="!city.valid || city.pristine">
+                    Ciudad Requerida
+                </mat-error>
+            </mat-form-field>
+        </ng-container>
+        <ng-template #showStores>
+            <mat-form-field class="form_element">
+                <mat-label>Sleccionar</mat-label>
+                <mat-select required name="store" #store="ngModel" [(ngModel)]="model.store">
+                    <mat-option [value]="store" *ngFor="let store of stores$|async">
+                        {{store.name}} - {{store.city}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </ng-template>
+    </form>
+</div>
+<app-details></app-details>
+<div class="container-button">
+    <button [disabled]="!checkoutForm.form.valid" mat-raised-button color="primary" type="submit" (click)="onSubmit(checkoutForm)">Enviar</button>
+</div>
